@@ -2,11 +2,14 @@
  * System variables
  */
 var Juniper = {};
+var Settings = {};
+var Globals = {};
 var Ti = {
 	ap: Titanium.App,
 	ui: Titanium.UI,
 	pf: Titanium.Platform,
-	fs: Titanium.Filesystem
+	fs: Titanium.Filesystem,
+	json: Titanium.JSON
 };
 var mainwin = Ti.ui.getMainWindow();
 
@@ -15,11 +18,11 @@ var mainwin = Ti.ui.getMainWindow();
  */
 Titanium.API.addEventListener(Titanium.CLOSE, function(e) {
 	e.preventDefault();
-	Ti.ui.getMainWindow().hide();
+	mainwin.hide();
 });
 
 Titanium.API.addEventListener("hidewindow", function(e) {
-	Ti.ui.getMainWindow().unfocus(); // doesn't work
+	mainwin.unfocus(); // doesn't work
 });
 
 /**
@@ -29,7 +32,7 @@ Juniper.evnt = function()
 {
 	// Nav button press
 	$(".nav").mousedown(function() {
-		$(this).css("opacity",".6");
+		//$(this).css("opacity",".6");
 		$(".on").removeClass("on");
 		$(this).addClass("on");
 	});
@@ -57,27 +60,51 @@ Juniper.evnt = function()
 }
 
 /**
- * Functions
+ * Initialize
  */
 Juniper.init = function()
 {
 	// Define some properties
-	this.resourceDir = Ti.fs.getResourcesDirectory();
-	this.header = $('#header');
+	Globals.resources = Ti.fs.getResourcesDirectory();
+	Globals.header = $('#header');
 
 	// Do something
-	var mac = Ti.pf.macaddress;
-	var id = Ti.pf.id;
-	var user = Ti.pf.username;
+	Globals.mac = Ti.pf.macaddress;
+	Globals.id = Ti.pf.id;
+	Globals.user = Ti.pf.username;
+	
+	// Load the config
+	Juniper.config();
 	
 	// Add the system tray
 	Juniper.addTray();
+	
+	// Load the events
+	Juniper.evnt();
+	
+	// Load the panel
+	Juniper.panel();
+}
+
+/**
+ * Functions
+ */
+Juniper.config =  function()
+{
+	// Get the config file
+	var file = Ti.fs.getFile(Globals.resources, 'config.json');
+	
+	// Put it into a workable object
+	var conf = Ti.json.parse(file.read());
+	
+	// Make it global!
+	Settings = conf;
 }
 
 Juniper.addTray = function()
 {
 	// Define the tray and icon
-	var icon = this.resourceDir+"/icon.png";
+	var icon = Globals.resources+"/icon.png";
 	var tray = Ti.ui.addTray(icon);
 	
 	// Create the menu items
@@ -114,7 +141,8 @@ Juniper.addTray = function()
 
 Juniper.panel = function(id)
 {
-	$("#content").html("You are on panel: "+id);
+	if (id == undefined) { id = "General"; }
+	$("#content").load("panels/"+id+".html");
 }
 
 Juniper.setAlert = function()
@@ -125,8 +153,10 @@ Juniper.setAlert = function()
 		notif.show();
 }
 
+/**
+ * Run it when we're ready
+ */
 $(document).ready(function()
 {
 	Juniper.init();
-	Juniper.evnt();
 });

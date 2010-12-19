@@ -7,7 +7,8 @@ html {
 	}
 	
 body {
-	font-family: "Helvetica Neue", "Helvetica", sans-serif;
+	font-family: "Lucida Grande", "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 13px;
 	margin: 0;
 	overflow: hidden;
 	padding: 0;
@@ -52,14 +53,14 @@ h1 {
 	}
 	
 	#header a {
-		border-left: 1px solid transparent;
-		border-right: 1px solid transparent;
+		border-left: 2px solid transparent;
+		border-right: 2px solid transparent;
 		color: #111;
 		cursor: default;
 		display: block;
 		float: left;
 		font-size: 11px;
-		padding: 3px 10px 2px;
+		padding: 3px 5px 2px;
 		text-align: center;
 		text-decoration: none;
 		text-shadow: 0 1px 0 #ddd;
@@ -73,8 +74,10 @@ h1 {
 		background: -webkit-gradient(
 			linear, 0% 0%, 0% 100%, from(rgba(145,145,145,0.0)), to(rgba(145,145,145,0.0)), color-stop(.4,rgba(125,125,125,0.3)), color-stop(.6,rgba(125,125,125,0.3))
 		);
-		border-left: 1px solid #999;
-		border-right: 1px solid #999;
+		/*border-left: 1px solid #999;
+		border-right: 1px solid #999;*/
+		border-width: 0 2px;
+		-webkit-border-image: url(../images/osx/bg-toolbar-border.png) 0 2;
 		}
 	
 	#header span {
@@ -83,9 +86,9 @@ h1 {
 		}
 
 #main {
-	background: #f5f5f5;
+	background: #f1f1f1;
 	clear: both;
 	height: 100%;
-	padding: 0;
+	padding: 10px;
 	margin: 0;
 	}
