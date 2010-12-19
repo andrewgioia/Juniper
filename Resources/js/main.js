@@ -11,24 +11,10 @@ var Ti = {
 	fs: Titanium.Filesystem,
 	json: Titanium.JSON
 };
+var Urls = {
+	"launch-ti": "http://appcelerator.com"
+};
 var mainwin = Ti.ui.getMainWindow();
-
-function scale(o, d)
-{
-	var currOpacity = o.style.opacity;
-	var scale = "scale(1)";
-	var newOpacity = (currOpacity == 1) ? 0 : 1;
-	
-	if (d == "up" && currOpacity == 1) {
-		scale = "scale(1.3)";
-	}
-	if (d == "down" && currOpacity == 1) {
-		scale = "scale(0.8)";
-	}
-	
-	o.style.webkitTransform = scale;
-	o.style.opacity = newOpacity;
-}
 
 /**
  * General listeners
@@ -47,19 +33,13 @@ Titanium.API.addEventListener("hidewindow", function(e) {
  */
 Juniper.evnt = function()
 {
-	// Nav button press
-	$(".nav").mousedown(function() {
-		//$(this).css("opacity",".6");
-		$(".on").removeClass("on");
-		$(this).addClass("on");
-	});
-	$(".nav").mouseup(function() {
-		$(this).css("opacity","1.0");
-	});
-
 	// Nav button click
 	$(".nav").click(function() {
 	
+		// Add the background
+		$(".on").removeClass("on");
+		$(this).addClass("on");
+		
 		// Set the window title
 		var title = $(this).attr("title");
 		
@@ -72,8 +52,16 @@ Juniper.evnt = function()
 			h = 200;
 		} else if (title == "Account") {
 			h = 350;
+		} else if (title == "About") {
+			h = 320;
 		}
 		mainwin.setHeight(h);
+	});
+
+	// Launch links
+	$(".launch").click(function() {
+		//var id = $(this).attr("id");
+		Ti.pf.openURL("http://juniperapp.com");
 	});
 }
 
@@ -123,7 +111,7 @@ Juniper.addTray = function()
 {
 	// Define the tray and icon
 	var icon = Globals.resources+"/icon.png";
-	var ioff = Globals.resources+"/icon-off.png";
+	var ioff = Globals.resources+"/icon-alert.png";
 	var tray = Ti.ui.addTray(icon);
 	
 	// Create the menu items

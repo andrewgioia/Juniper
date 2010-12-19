@@ -14,6 +14,7 @@ html {
 	}
 	
 body {
+	color: #222;
 	cursor: default;
 	font-family: "Lucida Grande", "Helvetica Neue", Helvetica, sans-serif;
 	font-size: 13px;
@@ -21,6 +22,13 @@ body {
 	overflow: hidden;
 	padding: 0;
 	-webkit-user-select: ignore;
+	}
+	
+a {
+	border-bottom: 1px solid #999;
+	color: #222;
+	cursor: pointer;
+	text-decoration: none;
 	}
 
 /**
@@ -48,6 +56,15 @@ body {
 h1 {
 	font-size: 16px;
 	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	text-shadow: 0 1px 0 #fff;
+	}
+
+h2 {
+	font-size: 13px;
+	margin: 5px 0 0;
+	padding: 0;
 	}
 	
 #header {
@@ -59,6 +76,7 @@ h1 {
 	#header a {
 		border-left: 2px solid transparent;
 		border-right: 2px solid transparent;
+		border-bottom: none;
 		color: #111;
 		cursor: default;
 		display: block;
@@ -106,8 +124,14 @@ h1 {
 		height: 284px;
 		}
 	
-	.carrier #content, .notifications #content, .about #content {
+	.carrier #content, .notifications #content {
 		height: 234px;
+		}
+	
+	.about #content {
+		background: url(../icon-big.png) 28px 17px no-repeat;
+		height: 247px;
+		padding: 17px 30px 0 75px;
 		}
 	
 	#content #form-general {
