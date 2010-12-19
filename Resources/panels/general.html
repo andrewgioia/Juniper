@@ -1,1 +1,27 @@
-This is the General panel, which will include very few general settings.
+<div id="panel">
+	<form id="form-general" class="form">
+		<span>
+			<input type="checkbox" id="general-startup" />
+			<label for="general-startup">Start Juniper on system startup</label>
+		</span>
+		<span>
+			<input type="checkbox" id="general-grayscale" />
+			<label for="general-grayscale">Use black and white menubar icons</label>
+		</span>
+		<span>
+			<input type="checkbox" id="general-animatetray" />
+			<label for="general-animatetray">Animate menubar icon when Juniper events occur</label>
+		</span>
+		<span>
+			<input type="checkbox" id="general-updates" />
+			<label for="general-updates">Check for updates and apply them automatically</label>
+		</span>
+	</form>
+
+	<script type="text/javascript">
+		if (Settings.general.startup == 1) { $("#general-startup").attr("checked","checked"); }
+		if (Settings.general.grayscale == 1) { $("#general-grayscale").attr("checked","checked"); }
+		if (Settings.general.animate_tray == 1) { $("#general-animatetray").attr("checked","checked"); }
+		if (Settings.general.updates == 1) { $("#general-updates").attr("checked","checked"); }
+	</script>
+</div>

@@ -1,4 +1,11 @@
 /**
+ * Reference
+ *
+ * #content height = window height - 56px (55px for the header, 1px for the border)
+ *
+ */
+
+/**
  * Global
  */
 html {
@@ -7,34 +14,31 @@ html {
 	}
 	
 body {
+	cursor: default;
 	font-family: "Lucida Grande", "Helvetica Neue", Helvetica, sans-serif;
 	font-size: 13px;
 	margin: 0;
 	overflow: hidden;
 	padding: 0;
+	-webkit-user-select: ignore;
 	}
 
 /**
  * Custom scrollbar
  */
-body.mac ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 13px;
     height: 13px;
 	}
 
-body.mac ::-webkit-scrollbar-thumb:vertical {
-    height: 56px;
-    -webkit-border-image: url(../images/osx/scroll-thumb.png) 8 0 8 0 stretch stretch;
-    border-width: 8 0 8 0;
+::-webkit-scrollbar-thumb:vertical {
+	border-color: transparent;
+	border-width: 8px 0;
+    min-height: 20px;
+	-webkit-border-image: url(../images/osx/scroll-thumb.png) 8 0 8 0 stretch stretch;
 	}
 
-body.mac ::-webkit-scrollbar-thumb:horizontal {
-    width: 56px;
-    -webkit-border-image: url(../images/osx/scroll-thumb-horizontal.png) 0 8 0 8;
-    border-width: 0 8 0 8;
-	}
-
-body.mac ::-webkit-scrollbar-corner {
+::-webkit-scrollbar-corner {
  	display:none;
 	}
 	
@@ -64,6 +68,7 @@ h1 {
 		text-align: center;
 		text-decoration: none;
 		text-shadow: 0 1px 0 #ddd;
+		-webkit-user-select: none;
 		}
 		
 	#header a.first {
@@ -74,8 +79,6 @@ h1 {
 		background: -webkit-gradient(
 			linear, 0% 0%, 0% 100%, from(rgba(145,145,145,0.0)), to(rgba(145,145,145,0.0)), color-stop(.4,rgba(125,125,125,0.3)), color-stop(.6,rgba(125,125,125,0.3))
 		);
-		/*border-left: 1px solid #999;
-		border-right: 1px solid #999;*/
 		border-width: 0 2px;
 		-webkit-border-image: url(../images/osx/bg-toolbar-border.png) 0 2;
 		}
@@ -88,7 +91,30 @@ h1 {
 #main {
 	background: #f1f1f1;
 	clear: both;
-	height: 100%;
-	padding: 10px;
 	margin: 0;
 	}
+	
+#content {
+	padding: 10px 0 0;
+	}
+	
+	.general #content {
+		height: 134px; /* 144px - 10px pad */
+		}
+	
+	.account #content {
+		height: 284px;
+		}
+	
+	.carrier #content, .notifications #content, .about #content {
+		height: 234px;
+		}
+	
+	#content #form-general {
+		padding: 10px 0 0 75px;
+		}
+	
+	#content .form span {
+		display: block;
+		padding: 0 0 5px;
+		}

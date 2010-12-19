@@ -5,6 +5,8 @@
 	"twitter": "",
 	"device_name": "",
 	"startup": "1",
-	"notifications": "1"
+	"grayscale": "0",
+	"animate_tray": "1",
+	"updates": "1"
     }
 }

@@ -13,6 +13,23 @@ var Ti = {
 };
 var mainwin = Ti.ui.getMainWindow();
 
+function scale(o, d)
+{
+	var currOpacity = o.style.opacity;
+	var scale = "scale(1)";
+	var newOpacity = (currOpacity == 1) ? 0 : 1;
+	
+	if (d == "up" && currOpacity == 1) {
+		scale = "scale(1.3)";
+	}
+	if (d == "down" && currOpacity == 1) {
+		scale = "scale(0.8)";
+	}
+	
+	o.style.webkitTransform = scale;
+	o.style.opacity = newOpacity;
+}
+
 /**
  * General listeners
  */
@@ -47,13 +64,14 @@ Juniper.evnt = function()
 		var title = $(this).attr("title");
 		
 		// Load the correct panel
-		mainwin.setTitle(title);
-		Juniper.panel(title);
+   		Juniper.panel(title);
 		
 		// Set the correct height
 		var h = 300;
-		if (title == "Account") {
-			h = 400;
+		if (title == "General") {
+			h = 200;
+		} else if (title == "Account") {
+			h = 350;
 		}
 		mainwin.setHeight(h);
 	});
@@ -105,13 +123,22 @@ Juniper.addTray = function()
 {
 	// Define the tray and icon
 	var icon = Globals.resources+"/icon.png";
+	var ioff = Globals.resources+"/icon-off.png";
 	var tray = Ti.ui.addTray(icon);
 	
 	// Create the menu items
 	var launch = Ti.ui.createMenuItem("Launch Juniper Website", function() {
 		Ti.pf.openURL("http://juniperapp.com");
 	});
-	var pause = Ti.ui.createMenuItem("Pause Notifications");
+	var pause = Ti.ui.createMenuItem("Pause Notifications", function() {
+		if (pause.getLabel() == "Pause Notifications") {
+			pause.setLabel("Resume Notifications");
+			tray.setIcon(ioff);
+		} else {
+			pause.setLabel("Pause Notifications");
+			tray.setIcon(icon);
+		}
+	});
 	var pref = Ti.ui.createMenuItem("Preferences...", function() {
 		Ti.ui.getMainWindow().show();
 	});
@@ -142,6 +169,8 @@ Juniper.addTray = function()
 Juniper.panel = function(id)
 {
 	if (id == undefined) { id = "General"; }
+	var old = $("#main").attr("class");
+	$("#main").removeClass(old).addClass(id.toLowerCase());
 	$("#content").load("panels/"+id+".html");
 }
 

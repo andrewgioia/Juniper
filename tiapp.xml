@@ -16,7 +16,7 @@
 		<width>500</width>
 		<max-width>500</max-width>
 		<min-width>500</min-width>
-		<height>300</height>
+		<height>200</height>
 		<max-height>600</max-height>
 		<min-height>100</min-height>
 		<fullscreen>false</fullscreen>
