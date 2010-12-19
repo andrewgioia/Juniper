@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ti:app xmlns:ti='http://ti.appcelerator.org'>
+<!-- These values are edited/maintained by Titanium Developer -->
+<id>com.andrewgioia.juniper</id>
+<name>Juniper</name>
+<version>0.1.0</version>
+<publisher>Andrew Gioia</publisher>
+<url>http://andrewgioia.com</url>
+<icon>default_app_logo.png</icon>
+<copyright>2010 Andrew Gioia and Friends</copyright>
+	<!-- Window Definition - these values can be edited -->
+	<window>
+		<id>initial</id>
+		<title>General</title>
+		<url>app://index.html</url>
+		<width>500</width>
+		<max-width>500</max-width>
+		<min-width>500</min-width>
+		<height>300</height>
+		<max-height>600</max-height>
+		<min-height>100</min-height>
+		<fullscreen>false</fullscreen>
+		<resizable>false</resizable>
+		<chrome scrollbars="true">true</chrome>
+		<maximizable>false</maximizable>
+		<minimizable>true</minimizable>
+		<closeable>true</closeable>
+		<visible>true</visible>
+	</window>
+</ti:app>

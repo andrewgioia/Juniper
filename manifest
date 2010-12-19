@@ -1,0 +1,20 @@
+#appname:Juniper
+#appid:com.andrewgioia.juniper
+#publisher:Andrew Gioia
+#image:default_app_logo.png
+#url:http://andrewgioia.com
+#guid:4fec6f04-8646-4b43-9979-de94e6700e06
+#desc:Better push notifications between your devices
+#type:desktop
+runtime:1.1.0
+tiapp:1.1.0
+tifilesystem:1.1.0
+tiplatform:1.1.0
+tiui:1.1.0
+ticodec:1.1.0
+tidatabase:1.1.0
+timedia:1.1.0
+timonkey:1.1.0
+tinetwork:1.1.0
+tiprocess:1.1.0
+tiworker:1.1.0
