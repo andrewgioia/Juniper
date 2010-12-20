@@ -1,7 +1,36 @@
 <div id="panel">
-	<form id="form-general" class="form">
-		<span>
-			This is the account page.</label>
+	<form id="form-account" class="form">
+		<span id="account-name">
+			<i>Account:</i>
+			<b></b>
+			<div class="clear"></div>
+		</span>
+		<span id="account-profile">
+			<i>Profile:</i>
+			<b></b>
+			<div class="clear"></div>
+		</span>
+		<span id="account-version">
+			<i>Version:</i>
+			<b></b>
+			<div class="clear"></div>
+		</span>
+		<span id="account-device">
+			<i>Device name:</i>
+			<b></b>
+			<div class="clear"></div>
+		</span>
+		<span id="account-auth">
+			<i>&nbsp;</i>
+			<b><input type="button" value="De-authorize this device" /></b>
+			<div class="clear"></div>
 		</span>
 	</form>
+	
+	<script type="text/javascript">
+		$("#account-name b").html(Settings.general.name+" ("+Settings.general.email+")");
+		$("#account-profile b").html("<a href='javascript:Titanium.Platform.openURL('http://juniperapp.com/u/"+Settings.general.userid+";'>http://juniperapp.com/u/"+Settings.general.userid+"</a>");
+		$("#account-version b").html("Juniper v"+Titanium.App.getVersion());
+		$("#account-device b").html(Settings.general.device_name+" ("+Settings.general.platform+")");
+	</script>
 </div>

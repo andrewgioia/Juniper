@@ -11,9 +11,6 @@ var Ti = {
 	fs: Titanium.Filesystem,
 	json: Titanium.JSON
 };
-var Urls = {
-	"launch-ti": "http://appcelerator.com"
-};
 var mainwin = Ti.ui.getMainWindow();
 
 /**
@@ -34,34 +31,34 @@ Titanium.API.addEventListener("hidewindow", function(e) {
 Juniper.evnt = function()
 {
 	// Nav button click
-	$(".nav").click(function() {
-	
+	$(".nav").click(function() 
+	{
 		// Add the background
 		$(".on").removeClass("on");
 		$(this).addClass("on");
-		
-		// Set the window title
-		var title = $(this).attr("title");
-		
+
 		// Load the correct panel
-   		Juniper.panel(title);
+		var id = ($(this).attr("title") == undefined) ? "General" : $(this).attr("title");
+		var from = $("#main").attr("class");
+		if (id.toLowerCase() != from)
+		{
+			$("#content").html("");
+			Juniper.panel(id, from);
+		}
+
+		// Set the window title
+		mainwin.setTitle(id);
 		
 		// Set the correct height
 		var h = 300;
-		if (title == "General") {
+		if (id == "General") {
 			h = 200;
-		} else if (title == "Account") {
-			h = 350;
-		} else if (title == "About") {
-			h = 320;
+		} else if (id == "Account") {
+			h = 235;
+		} else if (id == "About") {
+			h = 335;
 		}
 		mainwin.setHeight(h);
-	});
-
-	// Launch links
-	$(".launch").click(function() {
-		//var id = $(this).attr("id");
-		Ti.pf.openURL("http://juniperapp.com");
 	});
 }
 
@@ -73,13 +70,11 @@ Juniper.init = function()
 	// Define some properties
 	Globals.resources = Ti.fs.getResourcesDirectory();
 	Globals.header = $('#header');
-
-	// Do something
-	Globals.mac = Ti.pf.macaddress;
-	Globals.id = Ti.pf.id;
-	Globals.user = Ti.pf.username;
+	Globals.device_mac = Ti.pf.macaddress;
+	Globals.device_id = Ti.pf.id;
+	Globals.device_user = Ti.pf.username;
 	
-	// Load the config
+	// Load the config settings
 	Juniper.config();
 	
 	// Add the system tray
@@ -88,8 +83,8 @@ Juniper.init = function()
 	// Load the events
 	Juniper.evnt();
 	
-	// Load the panel
-	Juniper.panel();
+	// Set the General panel
+	$("#content").load("panels/general.html");
 }
 
 /**
@@ -127,6 +122,8 @@ Juniper.addTray = function()
 			tray.setIcon(icon);
 		}
 	});
+	var status = Ti.ui.createMenuItem("No new notifications");
+		status.disable();
 	var pref = Ti.ui.createMenuItem("Preferences...", function() {
 		Ti.ui.getMainWindow().show();
 	});
@@ -144,6 +141,8 @@ Juniper.addTray = function()
 		menu.appendItem(launch);
 		menu.appendItem(pause);
 		menu.addSeparatorItem();
+		menu.appendItem(status);
+		menu.addSeparatorItem();
 		menu.appendItem(pref);
 		menu.appendItem(help);
 		menu.addSeparatorItem();
@@ -154,15 +153,13 @@ Juniper.addTray = function()
 	tray.setHint("Juniper 0.1.0\nNo new notifications");
 }
 
-Juniper.panel = function(id)
+Juniper.panel = function(id, from)
 {
-	if (id == undefined) { id = "General"; }
-	var old = $("#main").attr("class");
-	$("#main").removeClass(old).addClass(id.toLowerCase());
+	$("#main").removeClass(from).addClass(id.toLowerCase());
 	$("#content").load("panels/"+id+".html");
 }
 
-Juniper.setAlert = function()
+Juniper.notify = function()
 {
 	var notif = Titanium.Notification.createNotification(Titanium.UI.createWindow());
 		notif.setTitle("New message");

@@ -21,7 +21,7 @@ body {
 	margin: 0;
 	overflow: hidden;
 	padding: 0;
-	-webkit-user-select: ignore;
+	-webkit-user-select: none;
 	}
 	
 a {
@@ -29,6 +29,10 @@ a {
 	color: #222;
 	cursor: pointer;
 	text-decoration: none;
+	}
+
+.clear {
+	clear: both;
 	}
 
 /**
@@ -59,12 +63,14 @@ h1 {
 	margin: 0;
 	padding: 0;
 	text-shadow: 0 1px 0 #fff;
+	-webkit-user-select: none;
 	}
 
 h2 {
 	font-size: 13px;
 	margin: 5px 0 0;
 	padding: 0;
+	-webkit-user-select: none;
 	}
 	
 #header {
@@ -121,7 +127,7 @@ h2 {
 		}
 	
 	.account #content {
-		height: 284px;
+		height: 169px;
 		}
 	
 	.carrier #content, .notifications #content {
@@ -130,15 +136,43 @@ h2 {
 	
 	.about #content {
 		background: url(../icon-big.png) 28px 17px no-repeat;
-		height: 247px;
-		padding: 17px 30px 0 75px;
+		height: 262px;
+		padding: 17px 35px 0 75px;
 		}
 	
 	#content #form-general {
 		padding: 10px 0 0 75px;
 		}
-	
-	#content .form span {
+		
+	#content #form-general span {
 		display: block;
 		padding: 0 0 5px;
+		}
+	
+	#content #form-account {
+		padding: 10px 0 0 25px;
+		}
+	
+	#content #form-account span {
+		display: block;
+		padding: 0 0 10px;
+		}
+
+	#content #form-account i {
+		display: block;
+		float: left;
+		font-style: normal;
+		padding-right: 10px;
+		text-align: right;
+		width: 125px;
+		}
+	
+	#content #form-account b {
+		display: block;
+		float: left;
+		font-weight: normal;
+		}
+	
+	#content #form-account input {
+		font-size: 16px;
 		}
