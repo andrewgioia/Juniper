@@ -14,15 +14,11 @@ var Ti = {
 var mainwin = Ti.ui.getMainWindow();
 
 /**
- * General listeners
+ * Application listeners
  */
 Titanium.API.addEventListener(Titanium.CLOSE, function(e) {
 	e.preventDefault();
 	mainwin.hide();
-});
-
-Titanium.API.addEventListener("hidewindow", function(e) {
-	mainwin.unfocus(); // doesn't work
 });
 
 /**
@@ -69,20 +65,24 @@ Juniper.init = function()
 {
 	// Define some properties
 	Globals.resources = Ti.fs.getResourcesDirectory();
+	Globals.application = Ti.fs.getApplicationDirectory();
+	Globals.appdata = Ti.fs.getApplicationDataDirectory();
 	Globals.header = $('#header');
 	Globals.device_mac = Ti.pf.macaddress;
 	Globals.device_id = Ti.pf.id;
 	Globals.device_user = Ti.pf.username;
 	
+	Titanium.API.info("dir: "+Globals.appdata);
+
 	// Load the config settings
 	Juniper.config();
-	
+
 	// Add the system tray
 	Juniper.addTray();
-	
+
 	// Load the events
 	Juniper.evnt();
-	
+
 	// Set the General panel
 	$("#content").load("panels/general.html");
 }
@@ -93,13 +93,17 @@ Juniper.init = function()
 Juniper.config =  function()
 {
 	// Get the config file
-	var file = Ti.fs.getFile(Globals.resources, 'config.json');
+	var file = Ti.fs.getFile(Globals.appdata, 'config.json');
+	if (!file.exists())
+	{
+		var copy = Ti.fs.getFile(Globals.application, 'config.json')
+			copy.move(Globals.appdata);
+		Ti.fs.getFile(Globals.appdata, 'config.json');
+	}
 	
 	// Put it into a workable object
-	var conf = Ti.json.parse(file.read());
-	
-	// Make it global!
-	Settings = conf;
+	file.open(Ti.fs.MODE_READ);
+	Settings = Ti.json.parse(file.read());
 }
 
 Juniper.addTray = function()
@@ -150,7 +154,7 @@ Juniper.addTray = function()
 
 	// Set the tray properties
 	tray.setMenu(menu);
-	tray.setHint("Juniper 0.1.0\nNo new notifications");
+	tray.setHint("Juniper Root m."+Ti.ap.getVersion()+"\nNo new notifications");
 }
 
 Juniper.panel = function(id, from)
@@ -159,12 +163,40 @@ Juniper.panel = function(id, from)
 	$("#content").load("panels/"+id+".html");
 }
 
-Juniper.notify = function()
+Juniper.notify = function(title, message)
 {
-	var notif = Titanium.Notification.createNotification(Titanium.UI.createWindow());
-		notif.setTitle("New message");
-		notif.setMessage("How are you doing?");
+	var notif = Titanium.Notification.createNotification({
+			'title': title,
+			'message': message,
+			'timeout': 100 // 604800, one week
+		}); 
 		notif.show();
+}
+
+Juniper.saveSetting = function(c, s, v)
+{
+	// Check for valid class
+	if (c != "general" && c != "notification")
+	{
+		return false;
+	}
+	
+	// Save the new individual setting
+	Settings[''+c+''][''+s+''] = v;
+	
+	// Write it to the .json file
+	var json = Ti.json.stringify(Settings);
+	var file = Ti.fs.getFile(Globals.appdata,'config.json');
+		file.open(Ti.fs.MODE_WRITE);
+	try 
+	{
+		file.write(json);
+	} 
+	catch (e)
+	{
+		Titanium.API.info("--SETTINGS SAVE ERROR: "+e);
+	}
+	return file;
 }
 
 /**

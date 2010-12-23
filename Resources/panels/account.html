@@ -18,6 +18,7 @@
 		<span id="account-device">
 			<i>Device name:</i>
 			<b></b>
+			<em rel="edit"><img src="images/icons/edit.png" id="edit-device" width="16" height="16" alt="" title="" /></em>
 			<div class="clear"></div>
 		</span>
 		<span id="account-auth">
@@ -30,7 +31,29 @@
 	<script type="text/javascript">
 		$("#account-name b").html(Settings.general.name+" ("+Settings.general.email+")");
 		$("#account-profile b").html("<a href='javascript:Titanium.Platform.openURL('http://juniperapp.com/u/"+Settings.general.userid+";'>http://juniperapp.com/u/"+Settings.general.userid+"</a>");
-		$("#account-version b").html("Juniper v"+Titanium.App.getVersion());
+		$("#account-version b").html("Juniper Root m."+Titanium.App.getVersion());
 		$("#account-device b").html(Settings.general.device_name+" ("+Settings.general.platform+")");
+		
+		$("#edit-device").click(function() {
+			if ($(this).parent().attr("rel") == "edit")
+			{
+				// Change the display
+				$(this).attr("src","images/icons/save.png");
+				$(this).parent().attr("rel","save");
+				// Show the input
+				$("#account-device b").html('<input type="text" id="edit-device-input" size="10" style="border: 1px solid #999; font-size: 13px; -webkit-border-radius: 3px; margin: -1px 0 -5px; width: 150px;" value="'+Settings.general.device_name+'" />');
+			}
+			else
+			{
+				// Change the display
+				$(this).attr("src","images/icons/edit.png");
+				$(this).parent().attr("rel","edit");
+				// Save the setting
+				var name = $("#edit-device-input").attr("value");
+				Juniper.saveSetting("general","device_name",name);
+				// Show the new name
+				$("#account-device b").html(name+" ("+Settings.general.platform+")");
+			}
+		});
 	</script>
 </div>
