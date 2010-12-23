@@ -1,0 +1,26 @@
+     _             _                 
+    | |_   _ _ __ (_)_ __   ___ _ __ 
+ _  | | | | | '_ \| | '_ \ / _ \ '__|
+| |_| | |_| | | | | | |_) |  __/ |   
+ \___/ \__,_|_| |_|_| .__/ \___|_|   
+                    |_|              
+
+Juniper is a cross-platform application that listens for special 
+messages that you and your close friends send, to push notifications 
+to your devices and control them natively in cool ways. Right now, 
+Android, iOS, Windows, OSX, and the web are supported, with Linux 
+and BlackBerry on the roadmap.
+
+The desktop and mobile applications are written entirely in web 
+technologies like Javascript, jQuery, HTML, and CSS, and is built 
+on top of the Titanium Desktop framework. For more information on 
+Titanium and their mobile and desktop development frameworks, please 
+check out http://appcelerator.com.
+
+Juniper is online at http://juniperapp.com.
+
+--
+Andrew Gioia <andrewgioia.com>
+Mike Gioia <mikegioia.com>
+
+
