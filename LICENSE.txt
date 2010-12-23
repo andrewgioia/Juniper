@@ -7,11 +7,11 @@ http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode.
 Essentially, you are free to share Juniper (i.e., to copy, distribute 
 and transmit it) under the following conditions:
 
-	1. Attribution - You must attribute Juniper as copyright Andrew 
-	   Gioia and Juniperapp.com, and not in any way that suggests that 
-	   Juniper endorses you or your use of it.
+    1. Attribution - You must attribute Juniper as copyright Andrew 
+       Gioia and Juniperapp.com, and not in any way that suggests that 
+       Juniper endorses you or your use of it.
 
-	2. Noncommercial - You may not use Juniper for commercial purposes.
+    2. Noncommercial - You may not use Juniper for commercial purposes.
 
-	3. No Derivative Works - You may not alter, transform, or build upon 
-	   Juniper in any way.
+    3. No Derivative Works - You may not alter, transform, or build upon 
+       Juniper in any way.
