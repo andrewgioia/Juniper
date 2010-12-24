@@ -1,13 +1,29 @@
 {"general": 
 	{
-	"userid": "4s98Ded4",
-	"name": "Andrew Gioia",
-	"email": "andrewgioia@gmail.com",
-	"device_name": "Celador",
+	"userid": "",
+	"name": "",
+	"email": "",
+	"device_name": "",
 	"platform": "OSX",
 	"startup": 1,
-	"dock_badge": "0",
-	"animate_tray": "1",
-	"updates": "1"
+	"dock_badge": 0,
+	"animate_tray": 1,
+	"updates": 1
     }
+,
+"defaults":
+	{
+	"browser": "System default",
+	"music": "None",
+	"photos": "Preview"
+	}
+,
+"notifications":
+	{
+	"alert": 1,
+	"dock": 0,
+	"tray": 0,
+	"duration": 1,
+	"sound": 1
+	}
 }

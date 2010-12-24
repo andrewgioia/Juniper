@@ -46,13 +46,15 @@ Juniper.evnt = function()
 		mainwin.setTitle(id);
 		
 		// Set the correct height
-		var h = 300;
-		if (id == "General") {
-			h = 200;
+		var h = 200;
+		if (id == "Notifications") {
+			h = 280;
 		} else if (id == "Account") {
 			h = 235;
 		} else if (id == "About") {
 			h = 335;
+		} else if (id == "Services") {
+			h = 220;
 		}
 		mainwin.setHeight(h);
 	});
@@ -71,26 +73,32 @@ Juniper.init = function()
 	Globals.device_mac = Ti.pf.macaddress;
 	Globals.device_id = Ti.pf.id;
 	Globals.device_user = Ti.pf.username;
-	
-	Titanium.API.info("dir: "+Globals.appdata);
 
 	// Load the config settings
 	Juniper.config();
+	
+	// If there is no user set, run the setup
+	if (Settings.general.userid == "")
+	{
+		Juniper.runOnce();
+	}
+	else
+	{
+		// Add the system tray
+		Juniper.addTray();
 
-	// Add the system tray
-	Juniper.addTray();
+		// Load the events
+		Juniper.evnt();
 
-	// Load the events
-	Juniper.evnt();
-
-	// Set the General panel
-	$("#content").load("panels/general.html");
+		// Set the General panel
+		$("#content").load("panels/general.html");
+	}
 }
 
 /**
  * Functions
  */
-Juniper.config =  function()
+Juniper.config = function()
 {
 	// Get the config file
 	var file = Ti.fs.getFile(Globals.appdata, 'config.json');
@@ -106,7 +114,21 @@ Juniper.config =  function()
 	Settings = Ti.json.parse(file.read());
 }
 
-Juniper.addTray = function()
+Juniper.defaults = function()
+{
+	// Initialize the objects
+	var appdir = Ti.fs.getProgramsDirectory();
+	var Defaults = {};
+		Defaults.browser = "System Default";
+		Defaults.music = "None";
+	
+	if (Ti.fs.getFile(appdir,"iTunes.app").exists())
+	{
+		Defaults.music = "iTunes";
+	}
+}
+
+Juniper.addTray = function(setup)
 {
 	// Define the tray and icon
 	var icon = Globals.resources+"/icon.png";
@@ -131,6 +153,9 @@ Juniper.addTray = function()
 	var pref = Ti.ui.createMenuItem("Preferences...", function() {
 		Ti.ui.getMainWindow().show();
 	});
+	var login = Ti.ui.createMenuItem("Sign in to Juniper...", function() {
+		Ti.ui.getMainWindow().show();
+	});
 	var help = Ti.ui.createMenuItem("Help Center", function() {
 		Ti.pf.openURL("http://juniperapp.com/help");
 	});
@@ -141,7 +166,18 @@ Juniper.addTray = function()
 	});
     
     // Create the menu
-   	var menu = Ti.ui.createMenu();
+    var menu = Ti.ui.createMenu();
+    if (setup == "setup")
+    {
+    	menu.appendItem(launch);
+		menu.appendItem(help);
+		menu.addSeparatorItem();
+		menu.appendItem(login);
+		menu.addSeparatorItem();
+		menu.appendItem(quit);
+    }
+    else
+    {
 		menu.appendItem(launch);
 		menu.appendItem(pause);
 		menu.addSeparatorItem();
@@ -151,6 +187,7 @@ Juniper.addTray = function()
 		menu.appendItem(help);
 		menu.addSeparatorItem();
 		menu.appendItem(quit);
+	}
 
 	// Set the tray properties
 	tray.setMenu(menu);
@@ -176,7 +213,7 @@ Juniper.notify = function(title, message)
 Juniper.saveSetting = function(c, s, v)
 {
 	// Check for valid class
-	if (c != "general" && c != "notification")
+	if (c != "general" && c != "defaults" && c != "notifications")
 	{
 		return false;
 	}
@@ -186,6 +223,9 @@ Juniper.saveSetting = function(c, s, v)
 	
 	// Write it to the .json file
 	var json = Ti.json.stringify(Settings);
+	
+	Juniper.notify("Settings change",json);
+	
 	var file = Ti.fs.getFile(Globals.appdata,'config.json');
 		file.open(Ti.fs.MODE_WRITE);
 	try 
@@ -197,6 +237,15 @@ Juniper.saveSetting = function(c, s, v)
 		Titanium.API.info("--SETTINGS SAVE ERROR: "+e);
 	}
 	return file;
+}
+
+Juniper.runOnce = function()
+{
+	// Set the window url to login
+	mainwin.setURL("app://login.html");
+	
+	// Add the limited system tray
+	Juniper.addTray("setup");
 }
 
 /**

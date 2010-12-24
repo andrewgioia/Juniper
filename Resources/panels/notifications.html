@@ -1,7 +1,47 @@
 <div id="panel">
-	<form id="form-general" class="form">
-		<span>
-			This is the notifications options page.</label>
-		</span>
+	<form id="form-notifications" class="form">
+		<fieldset>
+			<legend>Desktop interaction</legend>
+			<span>
+				<input type="checkbox" id="notif-alert" name="alert" />
+				<label for="notif-alert">Show desktop alerts when new notifications arive</label>
+			</span>
+			<span>
+				<input type="checkbox" id="notif-dockbadge" name="dock" />
+				<label for="notif-dock">Change the Dock icon when new notifications arrive</label>
+			</span>
+			<span>
+				<input type="checkbox" id="notif-tray" name="tray" />
+				<label for="notif-tray">Animate menubar icon when Juniper events occur</label>
+			</span>
+			<span>
+				<input type="checkbox" id="notif-duration" name="duration" />
+				<label for="notif-duration">Leave desktop alerts up until I close them</label>
+			</span>
+		</fieldset>
+		<fieldset style="margin-top: 15px;">
+			<legend>Sounds</legend>
+			<span>
+				<input type="checkbox" id="notif-sound" name="sound" />
+				<label for="notif-sound">Play a sound when a new alert comes in</label>
+			</span>
+		</fieldset>
 	</form>
+
+	<script type="text/javascript">
+		// Populate the fields
+		if (Settings.notifications.alert == 1) { $("#notif-alert").attr("checked","checked"); }
+		if (Settings.notifications.dock == 1) { $("#notif-dock").attr("checked","checked"); }
+		if (Settings.notifications.tray == 1) { $("#notif-tray").attr("checked","checked"); }
+		if (Settings.notifications.duration == 1) { $("#notif-duration").attr("checked","checked"); }
+		if (Settings.notifications.sound == 1) { $("#notif-sound").attr("checked","checked"); }
+		
+		// Save the setting
+		$("#form-notifications input").change(function() {
+			var check = ($(this).attr("checked") == true) ? 1 : 0;
+			var name = $(this).attr("name");
+			Juniper.saveSetting("notifications",name,check);
+		});
+	</script>
+
 </div>

@@ -1,0 +1,56 @@
+<div id="panel">
+	<p>
+		You can choose which applications you want Juniper to use for certain notifications:
+	</p>
+	<form id="form-split" class="form">
+		<span id="app-browser">
+			<i>URLs:</i>
+			<b style="margin-right: 10px;"></b>
+			<label class="file-wrapper">
+				<input type="file" class="file" rel="app-browser" id="browser" />
+			</label>
+			<div class="clear"></div>
+		</span>
+		<span id="app-music">
+			<i>Music:</i>
+			<b style="margin-right: 10px;"></b>
+			<label class="file-wrapper">
+				<input type="file" class="file" rel="app-music" id="music" />
+			</label>
+			<div class="clear"></div>
+		</span>
+		<span id="app-photos">
+			<i>Pictures:</i>
+			<b style="margin-right: 10px;"></b>
+			<label class="file-wrapper">
+				<input type="file" class="file" rel="app-photos" id="photos" />
+			</label>
+			<div class="clear"></div>
+		</span>
+	</form>
+
+	<script type="text/javascript">
+		// Populate the fields
+		$("#app-browser b").html(Settings.defaults.browser.replace(".app",""));
+		$("#app-music b").html(Settings.defaults.music.replace(".app",""));
+		$("#app-photos b").html(Settings.defaults.photos.replace(".app",""));
+		
+		// Handle file changes
+		$(".file").change(function() {
+			var val = $(this).val();
+			if (val.indexOf(".app") == -1)
+			{
+				// Throw an alert
+				alert("Please select an application!");
+			}
+			else
+			{
+				// Set the text and save it
+				var rel = $(this).attr("rel");
+				var set = $(this).attr("id");
+				$("#"+rel+" b").html(val.replace(".app",""));
+				Juniper.saveSetting("defaults",set,val);
+			}
+		});
+	</script>
+</div>

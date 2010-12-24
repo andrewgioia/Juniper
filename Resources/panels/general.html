@@ -5,14 +5,6 @@
 			<label for="general-startup">Start Juniper on system startup</label>
 		</span>
 		<span>
-			<input type="checkbox" id="general-dockbadge" name="dock_badge" />
-			<label for="general-grayscale">Change the Dock icon when new notifications come in</label>
-		</span>
-		<span>
-			<input type="checkbox" id="general-animatetray" name="animate_tray" />
-			<label for="general-animatetray">Animate menubar icon when Juniper events occur</label>
-		</span>
-		<span>
 			<input type="checkbox" id="general-updates" name="updates" />
 			<label for="general-updates">Check for updates and apply them automatically</label>
 		</span>
@@ -21,8 +13,6 @@
 	<script type="text/javascript">
 		// Check the appropriate options
 		if (Settings.general.startup == 1) { $("#general-startup").attr("checked","checked"); }
-		if (Settings.general.dock_badge == 1) { $("#general-dockbadge").attr("checked","checked"); }
-		if (Settings.general.animate_tray == 1) { $("#general-animatetray").attr("checked","checked"); }
 		if (Settings.general.updates == 1) { $("#general-updates").attr("checked","checked"); }
 		
 		// Save the setting

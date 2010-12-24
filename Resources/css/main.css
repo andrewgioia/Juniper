@@ -35,6 +35,35 @@ a {
 	clear: both;
 	}
 
+fieldset {
+	border: 1px solid #bbb;
+	-webkit-border-radius: 3px;
+	margin: 5px 20px 0;
+	padding: 10px 10px 5px;
+	}
+	
+legend {
+	font-weight: bold;
+	}
+
+.file {
+	height: 100%;
+	opacity: 0;
+	position: relative;
+    width: auto;
+    z-index: -10;
+	}
+
+.file-wrapper {
+	background: url(../images/icons/edit.png) 0 0 no-repeat;
+	cursor: pointer;
+	display: block;
+	height: 16px;
+	margin-right: -10px;
+	overflow: hidden;
+	width: 20px;
+	}
+
 /**
  * Custom scrollbar
  */
@@ -118,6 +147,11 @@ h2 {
 	margin: 0;
 	}
 	
+#panel p {
+	margin: 0;
+	padding: 5px 30px;
+	}
+	
 #content {
 	padding: 10px 0 0;
 	}
@@ -130,8 +164,12 @@ h2 {
 		height: 169px;
 		}
 	
-	.device #content, .notifications #content {
-		height: 234px;
+	.notifications #content {
+		height: 214px;
+		}
+	
+	.services #content {
+		height: 154px;
 		}
 	
 	.about #content {
@@ -141,24 +179,24 @@ h2 {
 		}
 	
 	#content #form-general {
-		padding: 10px 0 0 75px;
+		padding: 10px 0 0 65px;
 		}
 		
-	#content #form-general span {
+	#content #form-general span, fieldset span {
 		display: block;
 		padding: 0 0 5px;
 		}
 	
-	#content #form-account {
+	#content #form-split {
 		padding: 10px 0 0 25px;
 		}
 	
-	#content #form-account span {
+	#content #form-split span {
 		display: block;
 		padding: 0 0 10px;
 		}
 
-	#content #form-account i {
+	#content #form-split i {
 		display: block;
 		float: left;
 		font-style: normal;
@@ -167,18 +205,18 @@ h2 {
 		width: 125px;
 		}
 	
-	#content #form-account b, #content #form-account em {
+	#content #form-split b, #content #form-split em {
 		display: block;
 		float: left;
 		font-style: normal;
 		font-weight: normal;
 		}
 	
-		#content #form-account img {
+		#content #form-split img {
 			cursor: pointer;
 			margin-left: 5px;
 			}
 	
-	#content #form-account input {
+	#content #form-split input {
 		font-size: 16px;
 		}
