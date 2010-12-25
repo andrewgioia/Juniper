@@ -106,7 +106,7 @@ Juniper.config = function()
 	{
 		var copy = Ti.fs.getFile(Globals.application, 'config.json')
 			copy.move(Globals.appdata);
-		Ti.fs.getFile(Globals.appdata, 'config.json');
+		file = Ti.fs.getFile(Globals.appdata, 'config.json'); // possibly remove the "file =" ?
 	}
 	
 	// Put it into a workable object
@@ -243,6 +243,7 @@ Juniper.runOnce = function()
 {
 	// Set the window url to login
 	mainwin.setURL("app://login.html");
+	mainwin.setHeight(230);
 	
 	// Add the limited system tray
 	Juniper.addTray("setup");

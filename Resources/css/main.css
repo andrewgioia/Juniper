@@ -31,6 +31,12 @@ a {
 	text-decoration: none;
 	}
 
+input[type=text], input[type=password] {
+	border: 1px solid #999;
+	font-size: 14px;
+	-webkit-border-radius: 4px;
+	}
+
 .clear {
 	clear: both;
 	}
@@ -44,6 +50,10 @@ fieldset {
 	
 legend {
 	font-weight: bold;
+	}
+
+.hide {
+	display: none;
 	}
 
 .file {
@@ -146,6 +156,43 @@ h2 {
 	clear: both;
 	margin: 0;
 	}
+	
+#login {
+	background: url(../icon-big.png) 28px 17px no-repeat;
+	border-top: 1px solid #666;
+	height: 257px;
+	padding: 17px 35px 0 75px;
+	}
+
+	#login div {
+		clear: both;
+		padding: 10px 0 0;
+		}
+	
+	#login div.login-top {
+		padding-top: 25px;
+		}
+	
+	#login div.login-submit {
+		padding-top: 25px;
+		text-align: right;
+		}
+	
+	#login div span {
+		display: block;
+		float: left;
+		padding: 3px 10px 0 0;
+		text-align: right;
+		vertical-align: middle;
+		width: 90px;
+		}
+	
+	#login-error {
+		color: #9F0003;
+		float: right;
+		font-size: 11px;
+		padding-top: 5px;
+		}
 	
 #panel p {
 	margin: 0;

@@ -1,31 +1,71 @@
 <html>
 <head>
+	<title>Log in to Juniper</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css" />
 	<script src="js/jquery-1.4.4.min.js" />
 </head>
 <body class="mac">
-	<div id="main" class="general">
-		<div id="content">
-<div id="panel">
-	<h1>Juniper</h1>
-	<h2>Push notifications across your devices</h2>
-	<p>
-		Juniper is a cross-platform application that listens for special messages that you and your close friends send, 
-		to push notifications to your devices and control them natively in cool ways. Right now, Android, iOS, Windows, 
-		OSX, and the web are supported, with Linux on the way!
-	</p>
-	<p>
-		For more information or to manage your account, please go to 
-		<a href="javascript:Titanium.Platform.openURL('http://juniperapp.com');">http://juniperapp.com</a>.
-	</p>
-	<p>
-		Special thanks to <a href="javascript:Titanium.Platform.openURL('http://appcelerator.com');">Titanium Desktop</a> 
-		for the incredible cross-platform development framework and 
-		<a href="javascript:Titanium.Platform.openURL('http://bogo-d.deviantart.com');">Mihaiciuc Bogdan</a> for the 
-		beautiful icons.
-	</p>
-</div>
+	<div id="main">
+		<div id="login">
+			<h1>Juniper</h1>
+			<h2>Push notifications across your devices</h2>
+			<div class="login-top">
+				<span>Email:</span>
+				<input type="text" id="login-email" value="" size="30" />
+			</div>
+			<div>
+				<span>Password:</span>
+				<input type="password" id="login-password" value="" size="30" />
+			</div>
+			<div class="login-submit">
+				<input type="submit" id="login-button-submit" value="Log in" />
+				<input type="submit" id="login-button-create" value="Create an account" />
+			</div>
+			<div id="login-error" class="hide"></div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+		$("#login-button-submit").click(function() {
+			var email = $("#login-email").val();
+			var password = $("#login-password").val();
+			if (email == "" || password == "")
+			{
+				$("#login-error").html("Please enter a valid email address and password!").fadeIn(200).delay(7500).fadeOut();
+			}
+			else
+			{
+				// Attempt to log us in
+				if (email == "a@a.com" && password == "a")
+				{
+					// Set the message
+					$("#login-error").css("color","#0A5F06").html("Welcome!").fadeIn(200);
+					var json = {};
+
+					// Read the config file and edit the email and userid
+					var file = Titanium.Filesystem.getFile(Titanium.Filesystem.getApplicationDataDirectory(), 'config.json');
+						file.open(Titanium.Filesystem.MODE_READ);
+					json = Titanium.JSON.parse(file.read());
+					json.general.userid = "TEMP1234";
+					json.general.email = email;
+
+					// Save it
+					var save = Titanium.JSON.stringify(json);
+					file.open(Titanium.Filesystem.MODE_WRITE);
+					try {
+						file.write(save);
+						Titanium.App.restart();
+					} catch (e) {
+						$("#login-error").html("There was a problem logging in, please try again").fadeIn(200).delay(7500).fadeOut();
+					}
+				}
+			}
+		});
+		
+		$("#login-button-create").click(function() {
+			Titanium.Platform.openURL('http://juniperapp.com/signup');
+			Titanium.UI.getMainWindow().hide();
+		});
+	</script>
 </body>
 </html>
